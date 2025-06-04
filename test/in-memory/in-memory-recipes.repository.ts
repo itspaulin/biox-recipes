@@ -31,4 +31,12 @@ export class InMemoryRecipesRepository implements RecipesRepository {
     const recipe = this.items.find((item) => item.title === title);
     return recipe ?? null;
   }
+
+  async delete(id: string): Promise<void> {
+    const index = this.items.findIndex((item) => item.id.toString() === id);
+
+    if (index >= 0) {
+      this.items.splice(index, 1);
+    }
+  }
 }

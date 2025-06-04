@@ -8,18 +8,22 @@ import { GetRecipeByIdController } from './controllers/get-recipes-by-id.control
 import { GetRecipeByIdUseCase } from '@/domain/recipe/application/use-cases/get-recipe-by-Id.usecase';
 import { UpdateRecipeController } from './controllers/update-recipe.controller';
 import { UpdateRecipeUseCase } from '@/domain/recipe/application/use-cases/update-recipe.usecase';
+import { DeleteRecipeController } from './controllers/delete-recipe.controller';
+import { DeleteRecipeUseCase } from '@/domain/recipe/application/use-cases/delete-recipe.usecase';
 
 @Module({
   imports: [DatabaseModule],
   controllers: [
     CreateRecipeController,
     UpdateRecipeController,
+    DeleteRecipeController,
     GetAllRecipesController,
     GetRecipeByIdController,
   ],
   providers: [
     CreateRecipeUseCase,
     UpdateRecipeUseCase,
+    DeleteRecipeUseCase,
     GetAllRecipeUseCase,
     GetRecipeByIdUseCase,
   ],

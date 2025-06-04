@@ -24,7 +24,6 @@ export class CreateRecipeController {
   constructor(private readonly createQuestion: CreateRecipeUseCase) {}
 
   @Post()
-  @HttpCode(201)
   async handle(@Body(bodyValidationPipe) body: CreateRecipeBodySchema) {
     const { title, description, ingredients } = body;
 
