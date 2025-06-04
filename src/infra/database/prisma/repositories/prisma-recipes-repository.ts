@@ -41,4 +41,15 @@ export class PrismaRecipeRepository implements RecipesRepository {
 
     return PrismaRecipeMapper.toDomain(recipe);
   }
+
+  async update(recipe: Recipe): Promise<Recipe> {
+    const data = PrismaRecipeMapper.toPrisma(recipe);
+
+    const updated = await this.prisma.recipe.update({
+      where: { id: data.id },
+      data,
+    });
+
+    return PrismaRecipeMapper.toDomain(updated);
+  }
 }

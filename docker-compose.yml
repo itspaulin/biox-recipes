@@ -6,7 +6,7 @@ services:
     restart: always
     container_name: biox-postgres
     ports:
-      - '5432:5432'  # confere se bate com o erro
+      - '5432:5432'
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres

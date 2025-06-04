@@ -1,4 +1,10 @@
-import { BadRequestException, Body, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+} from '@nestjs/common';
 import { ZodValidationPipe } from '@/infra/http/pipes/zod-validations.pipe';
 import { z } from 'zod';
 import { CreateRecipeUseCase } from '@/domain/recipe/application/use-cases/create-recipe.usecase';
@@ -6,7 +12,7 @@ import { CreateRecipeUseCase } from '@/domain/recipe/application/use-cases/creat
 const createRecipeBodySchema = z.object({
   title: z.string(),
   description: z.string(),
-  ingredients: z.array(z.string().uuid()),
+  ingredients: z.array(z.string()),
 });
 
 const bodyValidationPipe = new ZodValidationPipe(createRecipeBodySchema);
@@ -18,6 +24,7 @@ export class CreateRecipeController {
   constructor(private readonly createQuestion: CreateRecipeUseCase) {}
 
   @Post()
+  @HttpCode(201)
   async handle(@Body(bodyValidationPipe) body: CreateRecipeBodySchema) {
     const { title, description, ingredients } = body;
 

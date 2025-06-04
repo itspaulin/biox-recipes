@@ -5,4 +5,5 @@ export abstract class RecipesRepository {
   abstract getAllRecipes(): Promise<Recipe[]>;
   abstract getRecipeById(id: string): Promise<Recipe | null>;
   abstract getRecipeByTitle(title: string): Promise<Recipe | null>;
+  abstract update(recipe: Recipe): Promise<Recipe>;
 }

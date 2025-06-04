@@ -8,6 +8,16 @@ export class InMemoryRecipesRepository implements RecipesRepository {
     this.items.push(recipe);
   }
 
+  async update(recipe: Recipe): Promise<Recipe> {
+    const index = this.items.findIndex((item) => item.id.equals(recipe.id));
+
+    if (index >= 0) {
+      this.items[index] = recipe;
+    }
+
+    return recipe;
+  }
+
   async getAllRecipes(): Promise<Recipe[]> {
     return this.items;
   }
