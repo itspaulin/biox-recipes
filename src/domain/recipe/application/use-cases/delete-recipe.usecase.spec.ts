@@ -29,7 +29,6 @@ describe('Delete Recipe', () => {
     expect(result.isRight()).toBe(true);
     expect(result.value).toBeNull();
 
-    // Verify the recipe was actually deleted
     const deletedRecipe = await inMemoryRecipesRepository.getRecipeById(
       recipe.id.toString(),
     );
@@ -46,7 +45,6 @@ describe('Delete Recipe', () => {
   });
 
   it('should not be able to delete a recipe with invalid id', async () => {
-    // Create a recipe first
     const recipe = makeRecipe({
       title: 'Bolo de chocolate',
       description: 'Delicioso bolo',
@@ -55,7 +53,6 @@ describe('Delete Recipe', () => {
 
     await inMemoryRecipesRepository.create(recipe);
 
-    // Try to delete with wrong id
     const result = await sut.execute({
       id: 'wrong-id',
     });
@@ -63,7 +60,6 @@ describe('Delete Recipe', () => {
     expect(result.isLeft()).toBe(true);
     expect(result.value).toBeInstanceOf(ResourceNotFoundError);
 
-    // Verify the original recipe still exists
     const existingRecipe = await inMemoryRecipesRepository.getRecipeById(
       recipe.id.toString(),
     );
