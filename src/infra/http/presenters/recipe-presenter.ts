@@ -6,6 +6,7 @@ export class RecipesPresenter {
       id: recipe.id.toString(),
       title: recipe.title,
       ingredients: recipe.ingredients,
+      description: recipe.description,
       createdAt: recipe.createdAt,
       updatedAt: recipe.updatedAt,
     };
