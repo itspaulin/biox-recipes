@@ -3,7 +3,7 @@ import { RecipesRepository } from '../repositories/recipe-repository.interface';
 import { Either, right } from 'src/core/either';
 import { Recipe } from '../../enterprise/entities/recipe';
 
-type ListAllRecipeUseCaseResponse = Either<
+type GetAllRecipeUseCaseResponse = Either<
   null,
   {
     recipes: Recipe[];
@@ -11,10 +11,10 @@ type ListAllRecipeUseCaseResponse = Either<
 >;
 
 @Injectable()
-export class ListAllRecipeUseCase {
+export class GetAllRecipeUseCase {
   constructor(private readonly recipesRepository: RecipesRepository) {}
 
-  async execute(): Promise<ListAllRecipeUseCaseResponse> {
+  async execute(): Promise<GetAllRecipeUseCaseResponse> {
     const recipes = await this.recipesRepository.getAllRecipes();
 
     return right({
