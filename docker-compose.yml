@@ -3,7 +3,6 @@ version: '3.8'
 services:
   postgres:
     image: postgres:15
-    restart: always
     container_name: biox-postgres
     ports:
       - '5432:5432'
