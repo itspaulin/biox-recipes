@@ -46,6 +46,14 @@ describe('Create Recipe (E2E)', () => {
 
     expect(response.status).toBe(201);
 
+    expect(response.body).toHaveProperty('recipe');
+    expect(response.body.recipe).toHaveProperty('id');
+    expect(response.body.recipe.title).toBe(payload.title);
+    expect(response.body.recipe.description).toBe(payload.description);
+    expect(response.body.recipe.ingredients).toEqual(payload.ingredients);
+    expect(response.body.recipe).toHaveProperty('createdAt');
+    expect(response.body.recipe).toHaveProperty('updatedAt');
+
     const recipeOnDB = await prisma.recipe.findFirst({
       where: { title: 'Receita de Teste' },
     });

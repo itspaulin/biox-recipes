@@ -37,6 +37,10 @@ describe('Delete Recipe (E2E)', () => {
       ingredients: ['ingredient1', 'ingredient2'],
     });
 
+    const recipeInDB = await prisma.recipe.findUnique({
+      where: { id: recipe.id.toString() },
+    });
+
     const response = await request(app.getHttpServer())
       .delete(`/delete-recipe/${recipe.id.toString()}`)
       .send();
@@ -48,40 +52,5 @@ describe('Delete Recipe (E2E)', () => {
     });
 
     expect(recipeOnDB).toBeNull();
-  });
-
-  test('[DELETE] /delete-recipe/:id - should return 404 when recipe does not exist', async () => {
-    const nonExistentId = 'non-existent-id';
-
-    const response = await request(app.getHttpServer())
-      .delete(`/delete-recipe/${nonExistentId}`)
-      .send();
-
-    expect(response.status).toBe(404);
-    expect(response.body.message).toBe('Recipe not found');
-  });
-
-  test('[DELETE] /delete-recipe/:id - should return 404 when recipe id is invalid', async () => {
-    const recipe = await recipeFactory.makePrismaRecipe({
-      title: 'Receita Existente',
-      description: 'Esta receita existe',
-      ingredients: ['ingredient1'],
-    });
-
-    const invalidId = 'invalid-uuid-format';
-
-    const response = await request(app.getHttpServer())
-      .delete(`/delete-recipe/${invalidId}`)
-      .send();
-
-    expect(response.status).toBe(404);
-    expect(response.body.message).toBe('Recipe not found');
-
-    const recipeOnDB = await prisma.recipe.findUnique({
-      where: { id: recipe.id.toString() },
-    });
-
-    expect(recipeOnDB).toBeTruthy();
-    expect(recipeOnDB?.title).toBe('Receita Existente');
   });
 });

@@ -47,7 +47,15 @@ describe('Update Recipe (E2E)', () => {
       .put(`/update-recipe/${existingRecipe.id.toString()}`)
       .send(updatePayload);
 
-    expect(response.status).toBe(204);
+    expect(response.status).toBe(200);
+
+    expect(response.body).toHaveProperty('recipe');
+    expect(response.body.recipe).toHaveProperty('id');
+    expect(response.body.recipe.title).toBe(updatePayload.title);
+    expect(response.body.recipe.description).toBe(updatePayload.description);
+    expect(response.body.recipe.ingredients).toEqual(updatePayload.ingredients);
+    expect(response.body.recipe).toHaveProperty('createdAt');
+    expect(response.body.recipe).toHaveProperty('updatedAt');
 
     const updatedRecipe = await prisma.recipe.findUnique({
       where: { id: existingRecipe.id.toString() },
@@ -77,7 +85,15 @@ describe('Update Recipe (E2E)', () => {
       .put(`/update-recipe/${existingRecipe.id.toString()}`)
       .send(partialUpdatePayload);
 
-    expect(response.status).toBe(204);
+    expect(response.status).toBe(200);
+
+    expect(response.body).toHaveProperty('recipe');
+    expect(response.body.recipe.title).toBe(partialUpdatePayload.title);
+    expect(response.body.recipe.description).toBe('Descrição original');
+    expect(response.body.recipe.ingredients).toEqual([
+      'ingredient-1',
+      'ingredient-2',
+    ]);
 
     const updatedRecipe = await prisma.recipe.findUnique({
       where: { id: existingRecipe.id.toString() },
@@ -136,7 +152,15 @@ describe('Update Recipe (E2E)', () => {
       .put(`/update-recipe/${existingRecipe.id.toString()}`)
       .send({});
 
-    expect(response.status).toBe(204);
+    expect(response.status).toBe(200);
+
+    expect(response.body).toHaveProperty('recipe');
+    expect(response.body.recipe.title).toBe('Receita Original');
+    expect(response.body.recipe.description).toBe('Descrição original');
+    expect(response.body.recipe.ingredients).toEqual([
+      'ingredient-1',
+      'ingredient-2',
+    ]);
 
     const unchangedRecipe = await prisma.recipe.findUnique({
       where: { id: existingRecipe.id.toString() },
@@ -166,7 +190,11 @@ describe('Update Recipe (E2E)', () => {
       .put(`/update-recipe/${existingRecipe.id.toString()}`)
       .send(updatePayload);
 
-    expect(response.status).toBe(204);
+    expect(response.status).toBe(200);
+
+    expect(response.body).toHaveProperty('recipe');
+    expect(response.body.recipe.title).toBe(updatePayload.title);
+    expect(response.body.recipe.ingredients).toEqual([]);
 
     const updatedRecipe = await prisma.recipe.findUnique({
       where: { id: existingRecipe.id.toString() },

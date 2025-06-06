@@ -9,11 +9,11 @@ import {
 import { DeleteRecipeUseCase } from '@/domain/recipe/application/use-cases/delete-recipe.usecase';
 import { ResourceNotFoundError } from '@/core/errors/errors/resource-not-found-error';
 
-@Controller('/delete-recipe/:id')
+@Controller('/delete-recipe')
 export class DeleteRecipeController {
   constructor(private readonly deleteRecipe: DeleteRecipeUseCase) {}
 
-  @Delete()
+  @Delete('/:id')
   @HttpCode(204)
   async handle(@Param('id') id: string) {
     const result = await this.deleteRecipe.execute({ id });
