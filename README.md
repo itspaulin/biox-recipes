@@ -2,6 +2,10 @@
 
 Uma aplicação backend robusta desenvolvida com NestJS seguindo princípios de Clean Architecture e Domain-Driven Design (DDD) para gerenciamento de receitas.
 
+## 🌐 Projeto em Produção
+
+A aplicação está disponível em: **https://biox-teste.onrender.com**
+
 ## 🚀 Tecnologias
 
 - **Node.js** - Ambiente de execução JavaScript
