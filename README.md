@@ -1,217 +1,224 @@
-# BioX Teste
+# Biox Recipes
 
-Uma aplicação backend robusta desenvolvida com NestJS seguindo princípios de Clean Architecture e Domain-Driven Design (DDD) para gerenciamento de receitas.
+A recipe management system built with NestJS following Domain-Driven Design (DDD) principles. This application provides a comprehensive solution for managing recipes, ingredients, and cooking instructions.
 
-## 🌐 Projeto em Produção
+## 🍳 About the Project
 
-A aplicação está disponível em: **https://biox-teste.onrender.com**
+**Biox Recipes** is a robust and scalable backend application developed with the NestJS framework. The system implements DDD architecture to provide a clean separation of concerns and maintainable codebase for recipe management operations.
 
-## 🚀 Tecnologias
+## 🛠️ Technologies Used
 
-- **Node.js** - Ambiente de execução JavaScript
-- **NestJS** - Framework progressivo para Node.js
-- **TypeScript** - Superset tipado do JavaScript
-- **Prisma** - ORM moderno para TypeScript e Node.js
-- **Zod** - Biblioteca de validação de schemas TypeScript-first
-- **Vitest** - Framework de testes rápido e moderno
-- **Faker.js** - Geração de dados falsos para testes
-- **Docker** - Containerização da aplicação
+- **Framework:** [NestJS](https://nestjs.com/) - A progressive Node.js framework
+- **Language:** TypeScript
+- **Runtime:** Node.js
+- **Architecture:** Domain-Driven Design (DDD) + Clean Architecture
+- **Testing:** Unit and Integration testing
 
-## 📋 Pré-requisitos
+## 📋 Prerequisites
 
-Antes de começar, certifique-se de ter instalado em sua máquina:
+Before getting started, make sure you have the following installed on your machine:
 
-- [Node.js](https://nodejs.org/) (versão 18 ou superior)
-- [Docker](https://www.docker.com/) e Docker Compose
-- [npm](https://www.npmjs.com/) ou [yarn](https://yarnpkg.com/)
+- [Node.js](https://nodejs.org/) (version 16 or higher)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [Git](https://git-scm.com/)
 
-## 🔧 Instalação
+## 🚀 Installation and Setup
 
-1. Clone o repositório:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/itspaulin/biox-recipes.git
+   cd biox-recipes
+   ```
 
-```bash
-git clone https://github.com/itspaulin/biox-teste.git
-cd biox-teste
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit the .env file with your configurations
+   ```
+
+4. **Start the application**
+   ```bash
+   npm run start:dev
+   ```
+
+## 📁 Project Structure
+
+This project follows **Domain-Driven Design (DDD)** architecture principles:
+
+```
+biox-recipes/
+├── src/
+│   ├── core/                  # Core domain layer
+│   │   ├── entities/          # Base entities and domain objects
+│   │   ├── errors/            # Domain-specific errors
+│   │   └── utils/             # Core utilities
+│   ├── domain/
+│   │   └── recipe/            # Recipe domain
+│   │       ├── application/   # Application layer
+│   │       │   ├── repositories/    # Repository contracts
+│   │       │   └── use-cases/       # Business use cases
+│   │       │       ├── errors/      # Use case specific errors
+│   │       │       ├── create-recipe.specs.ts
+│   │       │       ├── create-recipe.usecase.ts
+│   │       │       ├── delete-recipe.usecase.spec.ts
+│   │       │       ├── delete-recipe.usecase.ts
+│   │       │       ├── get-all-recipes.spec.ts
+│   │       │       ├── get-all-recipes.usecase.ts
+│   │       │       ├── get-recipe-by-id.usecase.ts
+│   │       │       ├── get-recipe-by-id.spec.ts
+│   │       │       ├── get-recipe-by-title.spec.ts
+│   │       │       ├── get-recipe-by-title.usecase.ts
+│   │       │       ├── update-recipe.spec.ts
+│   │       │       └── update-recipe.usecase.ts
+│   │       └── enterprise/    # Enterprise business rules
+│   │           └── entities/  # Domain entities
+│   │               └── recipe.ts
+│   ├── infra/                 # Infrastructure layer
+│   │   ├── database/          # Database implementations
+│   │   └── http/              # HTTP controllers and routes
+│   ├── app.module.ts          # Main application module
+│   └── main.ts                # Application entry point
+├── test/                      # Test files
+├── dist/                      # Compiled output
+├── .gitignore                 # Git ignore rules
+├── nest-cli.json              # NestJS CLI configuration
+├── package.json               # Dependencies and scripts
+├── tsconfig.json              # TypeScript configuration
+└── README.md
 ```
 
-2. Instale as dependências:
+## 🏗️ Architecture Overview
 
+This project implements **Domain-Driven Design (DDD)** with **Clean Architecture** principles:
+
+### **Core Layer** 
+- **Entities**: Base domain entities and shared domain objects
+- **Errors**: Core domain error handling
+- **Utils**: Core utility functions
+
+### **Domain Layer**
+- **Recipe Domain**: Complete recipe management domain
+  - **Application Layer**:
+    - **Repositories**: Repository contracts and interfaces
+    - **Use Cases**: Business logic implementation
+      - Create Recipe
+      - Delete Recipe  
+      - Get All Recipes
+      - Get Recipe by ID
+      - Get Recipe by Title
+      - Update Recipe
+  - **Enterprise Layer**:
+    - **Entities**: Recipe domain entity with business rules
+
+### **Infrastructure Layer**
+- **Database**: Database access and implementations
+- **HTTP**: Controllers, routes, and HTTP-related infrastructure
+
+## 🔧 Available Scripts
+
+### Development
 ```bash
-npm install
-```
-
-3. Configure as variáveis de ambiente:
-
-```bash
-cp .env.example .env
-```
-
-4. Inicie o banco de dados com Docker:
-
-```bash
-docker-compose up -d
-```
-
-5. Execute as migrações do Prisma:
-
-```bash
-npx prisma migrate dev
-npx prisma generate
-```
-
-## ⚡ Execução
-
-### Desenvolvimento
-
-```bash
-# Modo de desenvolvimento
+# Development mode
 npm run start
 
-# Modo de desenvolvimento com watch (reinicia automaticamente)
+# Development mode with hot reload
 npm run start:dev
+
+# Production mode
+npm run start:prod
 ```
 
-### Produção
-
+### Testing
 ```bash
-# Compilar e executar em modo de produção
+# Unit tests
+npm run test
+
+# End-to-end tests
+npm run test:e2e
+
+# Test coverage
+npm run test:cov
+
+# Watch mode for tests
+npm run test:watch
+```
+
+### Build
+```bash
+# Build for production
+npm run build
+```
+
+## 🔌 API Endpoints
+
+The API provides comprehensive endpoints for recipe management:
+
+### Recipes
+- **GET** `/recipes` - Get all recipes
+- **GET** `/recipes/:id` - Get recipe by ID
+- **GET** `/recipes/title/:title` - Get recipe by title
+- **POST** `/recipes` - Create a new recipe
+- **PUT** `/recipes/:id` - Update an existing recipe
+- **DELETE** `/recipes/:id` - Delete a recipe
+
+*Detailed API documentation can be found at `/api/docs` when the server is running.*
+
+## 🧪 Testing Strategy
+
+The project includes comprehensive testing following DDD principles:
+
+- **Unit Tests**: Testing individual use cases and domain entities
+- **Integration Tests**: Testing the interaction between layers
+- **Domain Tests**: Ensuring business rules are properly implemented
+
+Each use case includes corresponding test files (`.spec.ts`) to ensure reliability and maintainability.
+
+## 🚀 Deployment
+
+### Production Build
+```bash
 npm run build
 npm run start:prod
 ```
 
-A aplicação estará rodando em `http://localhost:3000`
-
-## 🧪 Testes
-
+### Docker (if applicable)
 ```bash
-# Testes unitários com Vitest
-npm run test
-
-# Testes em modo watch
-npm run test:watch
-
-# Testes end-to-end
-npm run test:e2e
-
-# Cobertura de testes
-npm run test:cov
+docker build -t biox-recipes .
+docker run -p 3000:3000 biox-recipes
 ```
 
-## 📚 Estrutura do Projeto
+## 🤝 Contributing
 
-```
-src/
-├── core/                          # Camada de domínio
-│   ├── @types/                    # Definições de tipos
-│   ├── entities/                  # Entidades do domínio
-│   └── errors/                    # Erros customizados
-├── domain/                        # Lógica de negócio
-│   ├── recipe/                    # Domínio de receitas
-│   │   ├── application/           # Casos de uso
-│   │   │   ├── repositories/      # Interfaces dos repositórios
-│   │   │   └── use-cases/         # Casos de uso implementados
-│   │   └── enterprise/            # Entidades empresariais
-│   │       └── entities/          # Entidades do domínio
-└── infra/                         # Camada de infraestrutura
-    ├── database/                  # Configuração do banco
-    │   ├── prisma/                # Configurações do Prisma
-    │   └── mappers/               # Mapeadores de dados
-    ├── http/                      # Camada HTTP
-    │   ├── controllers/           # Controllers da API
-    │   ├── pipes/                 # Pipes de validação
-    │   └── presenters/            # Apresentadores de dados
-    └── test/                      # Configurações de teste
-        ├── factories/             # Factories para testes
-        └── in-memory/             # Repositórios em memória
-```
+Contributions are welcome! Please follow these steps:
 
-## 🛠️ Scripts Disponíveis
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-- `npm run start` - Inicia a aplicação em modo de desenvolvimento
-- `npm run start:dev` - Inicia com hot reload
-- `npm run start:prod` - Inicia em modo de produção
-- `npm run build` - Compila o projeto
-- `npm run test` - Executa os testes com Vitest
-- `npm run test:watch` - Executa testes em modo watch
-- `npm run test:e2e` - Executa os testes end-to-end
-- `npm run test:cov` - Gera relatório de cobertura
+## 📄 License
 
-## 🏗️ Arquitetura
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-O projeto segue os princípios de **Clean Architecture** e **Domain-Driven Design (DDD)**:
+## 📞 Contact
 
-- **Core**: Contém as entidades e regras de negócio fundamentais
-- **Domain**: Implementa os casos de uso e lógica de aplicação
-- **Infrastructure**: Gerencia detalhes técnicos como banco de dados e HTTP
+**Paulin** - [@itspaulin](https://github.com/itspaulin)
 
-### Padrões Utilizados
+Project Link: [https://github.com/itspaulin/biox-recipes](https://github.com/itspaulin/biox-recipes)
 
-- **Repository Pattern**: Abstração do acesso a dados
-- **Use Cases**: Encapsulamento da lógica de negócio
-- **Dependency Injection**: Inversão de controle
-- **Mapper Pattern**: Conversão entre camadas
-- **Factory Pattern**: Criação de objetos para testes
+## 🙏 Acknowledgments
 
-## 🌐 Endpoints da API
+- [NestJS](https://nestjs.com/) for the amazing framework
+- [TypeScript](https://www.typescriptlang.org/) for type safety
+- DDD Community for architectural guidance
+- All contributors who helped make this project better
 
-### Receitas
+---
 
-- `POST /create-recipe` - Criar nova receita
-- `GET /get-recipes` - Listar todas as receitas
-- `GET /get-recipe/:id` - Buscar receita por ID
-- `PUT /update-recipe/:id` - Atualizar receita
-- `DELETE /delete-recipe/:id` - Deletar receita
-
-### Validação
-
-Todos os endpoints utilizam validação com **Zod** para garantir a integridade dos dados de entrada.
-
-## 🗄️ Banco de Dados
-
-O projeto utiliza **Prisma** como ORM com as seguintes funcionalidades:
-
-- Migrações automáticas
-- Type-safe database queries
-- Schema declarativo
-- Geração automática de tipos TypeScript
-
-### Comandos Prisma
-
-```bash
-# Gerar o cliente Prisma
-npx prisma generate
-
-# Executar migrações
-npx prisma migrate dev
-
-# Visualizar o banco de dados
-npx prisma studio
-
-# Reset do banco de dados
-npx prisma migrate reset
-```
-
-## 🐳 Docker
-
-O projeto inclui configuração Docker para fácil desenvolvimento:
-
-```bash
-# Subir apenas o banco de dados
-docker-compose up -d database
-
-# Subir toda a aplicação
-docker-compose up -d
-```
-
-## 🧪 Testes
-
-O projeto utiliza **Vitest** para testes unitários e **Faker.js** para geração de dados de teste:
-
-- **Testes Unitários**: Testam casos de uso isoladamente
-- **Testes de Integração**: Testam controllers e repositórios
-- **In-Memory Repositories**: Simulam o banco de dados em testes
-- **Factories**: Geram dados consistentes para testes
-
-## ✨ Autor
-
-**Paulo** - [@itspaulin](https://github.com/itspaulin)
+⭐ If you found this project helpful, please give it a star!
